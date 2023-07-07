@@ -1,15 +1,12 @@
 public class UF {
     private int[] arr;
-    private int[] depths;
     int n;
 
     public UF(int n) {
         this.n = n;
         arr = new int[n];
-        depths = new int[n];
         for (int i = 0; i < n; i++) {
             arr[i] = i;
-            depths[i] = 1;
         }
     }
 
@@ -31,12 +28,11 @@ public class UF {
     }
 
     public int root(int a) {
-        int parent = arr[a];
-        while (parent != a) {
-            a = parent;
-            parent = arr[a];
+        while (arr[a] != a) {
+            arr[a] = arr[arr[a]];
+            a = arr[a];
         }
-        return parent;
+        return a;
     }
 
     public boolean isConnected(int a, int b) {
